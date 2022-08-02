@@ -1,0 +1,43 @@
+{% extends "authnapp/base.html" %}
+{% block content %}
+
+    <h2>Your profile 
+        {% block user_name %}
+        {{ authent_user }}
+        {% endblock user_name %}
+    </h2>
+    <form action="{% url 'logout' %}">
+      <button>exit</button>
+    </form>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">cut link</button>
+    </form>
+  
+    {% block content_url_lst %}
+    <h3>List of your links</h3>
+    {% if list_user_links %}
+        <table>
+            <colgroup>
+              <col span="1" style="background:Khaki"><!-- С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы-->
+              <col style="background-color:LightCyan"><!-- Задаем цвет фона для следующего (одного) столбца таблицы-->
+            </colgroup>
+            <tr>
+              <th>original_link</th>
+              <th>shortened_link</th>
+            </tr>
+            {% for link in list_user_links %}
+            <tr>
+              <td>{{ link.original_link | urlize }}</td>
+              <td>{{ link.shortened_link | urlize }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+          <p>=====----- no saved links -----=====</p>
+    {% endif %}
+
+    {% endblock content_url_lst %}
+{% endblock %}

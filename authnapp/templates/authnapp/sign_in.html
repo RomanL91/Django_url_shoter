@@ -1,0 +1,12 @@
+{% extends "authnapp/base.html" %}
+
+    {% block content %}
+    <h2>Enter your nickname and password</h2>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">to come in</button>
+    </form>
+
+    {% endblock content %}    
