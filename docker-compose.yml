@@ -12,6 +12,8 @@ services:
       - ./entrypoint.sh
     depends_on:
       - potsgresql
+    expose:
+      - 8000
 
   potsgresql:
     image: postgres
@@ -25,3 +27,10 @@ services:
     env_file:
       - .env
     command: -p ${POSTGRES_PORT}
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
